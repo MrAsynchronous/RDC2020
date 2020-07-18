@@ -20,12 +20,16 @@
 local PlayerService = {Client = {}}
 
 --//Api
+local CharacterApi
 
 --//Service
 local Players = game:GetService("Players")
 
+local HousingService
+
 --//Classes
 local PlayerProfile
+local LevelHandler
 
 --//Controllers
 
@@ -37,7 +41,8 @@ function PlayerService:Start()
 		print(player.Name, "has joined!")
 		
 		local Profile = PlayerProfile.new(player)
-		
+		Profile.House = HousingService:GiveHouseToPlayer(Profile)
+		Profile.LevelHandler = LevelHandler.new(Profile)
 	end)
 	
 	Players.PlayerRemoving:Connect(function(player)
@@ -51,11 +56,14 @@ end
 
 function PlayerService:Init()
 	--//Api
+	CharacterApi = self.Shared.Character
 
 	--//Service
+	HousingService = self.Services.HousingService
 	
 	--//Classes
 	PlayerProfile = self.Modules.Classes.PlayerProfile
+	LevelHandler = self.Modules.Classes.LevelHandler
 	
 	--//Controllers
 	

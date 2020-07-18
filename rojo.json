@@ -22,6 +22,10 @@
       "path": "src/Shared",
       "target": "ReplicatedStorage.Aero.Shared"
     },
+    "Levels": {
+      "path": "src/Levels",
+      "target": "ServerStorage.Levels"
+    },
     "_ReplicatedFirst": {
       "path": "src/_framework/rep_first",
       "target": "ReplicatedFirst.Aero"

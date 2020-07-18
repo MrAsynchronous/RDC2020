@@ -24,31 +24,23 @@ House.__index = House
 --//Controllers
 
 --//Locals
-local Houses = {}
-
 
 function House.new(houseObject)
 	local self = setmetatable({
 		Object = houseObject
 	}, House)
 	
-	table.insert(Houses, houseObject)
-	
 	return self
 end
 
 
-function House:GiveOwner(player)
+function House:SetOwner(player)
 	self.Owner = player
 end
 
 
-function House:Unload()
-	for i, house in pairs(Houses) do
-		if (house.Object == self.Object) then
-			table.remove(Houses, i)
-		end
-	end
+function House:Reset(player)
+	self.Owner = nil
 end
 
 

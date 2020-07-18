@@ -43,10 +43,9 @@ function PlayerProfile.new(player)
 	
 	--//Data
 	for key, value in pairs(TableUtil.Copy(DefaultPlayerData)) do
-		self[key] = DataStore2(key, player)
-		print(key, self[key]:Get(value))
+	--	self[key] = DataStore2(key, player)
+	--	print(key, self[key]:Get(value))
 	end
-	
 	
 	return self
 end
