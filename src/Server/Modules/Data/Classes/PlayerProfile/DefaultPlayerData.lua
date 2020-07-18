@@ -1,0 +1,3 @@
+return {
+	Cash = 0
+}
