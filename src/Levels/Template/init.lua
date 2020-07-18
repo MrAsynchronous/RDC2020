@@ -4,9 +4,9 @@
 
 
 
-local HappyHome = {}
-HappyHome.__aeroPreventStart
-HappyHome.__index = HappyHome
+local Template = {}
+Template.__aeroPreventStart
+Template.__index = Template
 
 --//Api
 local CharacterApi
@@ -25,46 +25,38 @@ local Maid
 local ObjectiveIndex
 
 
-function HappyHome.new(playerProfile)
+function Template.new(playerProfile)
     local self = setmetatable({
         Player = playerProfile.Player,
-        House = playerProfile.House.Object,
-
+       
         Objectives = TableUtil.Copy(ObjectiveIndex),
 
         _Maid = Maid.new()
-    }, HappyHome)
+    }, Template)
 
     return self
 end
 
 
---//Initialize props, map, etc
-function HappyHome:Initialize()
+--//Initialize props, map etc
+function Template:Initialize()
 
-    --Move player to bed
-    CharacterApi:Get(self.Player):Then(function(character)
-        character.PrimaryPart.Anchored = true
-        character:SetPrimaryPartCFrame(CFrame.new(self.House.Props.Bed.Position) * CFrame.Angles(0, math.rad(90), 0))   
-    end, function()
-        warn("Character not found!")
-    end)
 end
 
 
 --//Start the round
-function HappyHome:Start()
+function Template:Start()
 
 end
 
 
---//Cleanup connections
-function HappyHome:Cleanup()
+--//Cleanup props, map etc
+function Template:Cleanup()
 
 end
 
 
-function HappyHome:Init()
+function Template:Init()
     --//Api
     CharacterApi = self.Shared.Character
     TableUtil = self.Shared.TableUtil
@@ -83,4 +75,4 @@ function HappyHome:Init()
 
 end
 
-return HappyHome
+return Template

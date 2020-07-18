@@ -24,7 +24,8 @@ function LevelHandler.new(playerProfile)
     local self = setmetatable({
         Player = playerProfile.Player,
 
-        Levels = {}
+        Levels = {},
+        CompletedLevels = {}
     }, LevelHandler)
 
     --Cache level objects
@@ -34,10 +35,19 @@ function LevelHandler.new(playerProfile)
     end
 
     --Set current level, should be happy home
-    self.CurrentLevel = self.Levels[1]
+    self:ChangeLevel(1)
     self.CurrentLevel:Initialize()
 
     return self
+end
+
+
+function LevelHandler:ChangeLevel(newLevel)
+    if (self.CurrentLevel) then
+        table.insert(CompletedLevels, self.CurrentLevel)
+    end
+
+    self.CurrentLevel = self.Levels[newLevel]
 end
 
 
