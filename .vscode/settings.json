@@ -1,6 +1,9 @@
 {
-  "files.exclude": {
-    "src/_framework/": true,
-    ".vscode": true
-  }
+    "files.exclude": {
+        "src/_framework/": true,
+        ".vscode": true
+    },
+    "Lua.diagnostics.disable": [
+        "trailing-space"
+    ]
 }

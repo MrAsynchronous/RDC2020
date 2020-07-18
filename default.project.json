@@ -27,10 +27,6 @@
         "Services": {
           "$path": "src/Server/Services"
         }
-      },
-      "Levels": {
-        "$className": "Folder",
-        "$path": "src/Levels"
       }
     },
     "ServerScriptService": {

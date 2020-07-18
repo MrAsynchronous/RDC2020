@@ -68,7 +68,9 @@ function PlayerService:Init()
 	--//Controllers
 	
 	--//Locals
-
+	self:RegisterClientEvent("MovePlayer")
+	self:RegisterClientEvent("SendPropList")
+	
 end
 
 

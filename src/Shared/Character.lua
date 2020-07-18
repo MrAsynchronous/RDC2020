@@ -6,9 +6,13 @@
 
 local Character = {}
 
+local RunService = game:GetService("RunService")
+
 local PromiseClass
 
 function Character:Get(player)
+    if (not RunService:IsServer()) then player = self.Player end
+
     return PromiseClass.Async(function(resolve, reject)
         if (not player) then reject() end
 

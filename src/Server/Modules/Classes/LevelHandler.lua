@@ -10,60 +10,58 @@ LevelHandler.__index = LevelHandler
 --//Api
 
 --//Services
-local ServerStorage = game:GetService("ServerStorage")
+local PlayerService
 
 --//Classes
 
 --//Controllers
 
---//Locals  
-local LevelIndex
+--//Locals
+local HappyHome
 
 
 function LevelHandler.new(playerProfile)
     local self = setmetatable({
         Player = playerProfile.Player,
 
-        Levels = {},
+        Levels = {
+            HappyHome.new(playerProfile)
+        },
+
         CompletedLevels = {}
     }, LevelHandler)
 
-    --Cache level objects
-    for i=1, #LevelIndex do
-        local class = require(LevelIndex[i])
-        table.insert(self.Levels, class.new(playerProfile))
-    end
-
     --Set current level, should be happy home
     self:ChangeLevel(1)
-    self.CurrentLevel:Initialize()
 
     return self
 end
 
 
+--//Updates currentLevel
 function LevelHandler:ChangeLevel(newLevel)
     if (self.CurrentLevel) then
-        table.insert(CompletedLevels, self.CurrentLevel)
+        table.insert(self.CompletedLevels, self.CurrentLevel)
     end
 
     self.CurrentLevel = self.Levels[newLevel]
+    self.CurrentLevel:Initialize()
 end
 
 
 function LevelHandler:Init()
     --//Api
-    
+
     --//Services
-    
+    PlayerService = self.Services.PlayerService
+
     --//Classes
 
     --//Controllers
-    
+
     --//Locals
-    LevelIndex = ServerStorage:WaitForChild("Levels"):GetChildren()
-    
-    
+    HappyHome = self.Modules.Levels.HappyHome
+
 end
 
 
