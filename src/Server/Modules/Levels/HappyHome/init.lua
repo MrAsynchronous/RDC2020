@@ -70,9 +70,13 @@ end
 
 
 --//Initialize props, map, etc
-function HappyHome:Initialize()
+function HappyHome:Initialize(gender)
     local bedCFrame = self.House.Props.Bed.CFrame
     local position = bedCFrame + (-bedCFrame.RightVector * 5) + Vector3.new(0, 2, 0)
+
+    if (gender) then
+        self.Objectives[4].Gender = gender
+    end
 
     --Move character
     PlayerService:FireClient("MovePlayer", self.Player, position, true)

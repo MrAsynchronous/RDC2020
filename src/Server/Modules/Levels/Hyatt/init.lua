@@ -32,7 +32,7 @@ local ObjectiveIndex
 function Hyatt.new(playerProfile)
     local self = setmetatable({
         Player = playerProfile.Player,
-        Hyatt = Workspace.Hyatt,
+        Hyatt = Workspace.HyattHotel,
        
         Objectives = TableUtil.Copy(ObjectiveIndex),
         CompletedObjectives = {},

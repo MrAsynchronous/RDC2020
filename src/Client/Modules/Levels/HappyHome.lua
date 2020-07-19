@@ -7,6 +7,7 @@ local TweenService = game:GetService("TweenService")
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local Sounds = PlayerGui.Sounds
@@ -93,6 +94,31 @@ return {
         objective.Prop.Particle.ParticleEmitter.Enabled = false
         UnanchorPlayer()
         Sounds.Toothbrush:Stop()
+    end,
+    ["Clothes"] = function(objective)
+        Sounds.Drawer:Play()
+        ChangeProgress(2)
+        AnchorPlayer()
+
+        local gender = objective.Gender
+        local currentShirt, currentPant = Players.LocalPlayer.Character:FindFirstChildOfClass("Shirt"), Players.LocalPlayer.Character:FindFirstChildOfClass("Pants")
+        if (currentPant) then currentPant:Destroy() end
+        if (currentShirt) then currentShirt:Destroy() end
+
+        local newShirt = ReplicatedStorage.Clothes:FindFirstChild(gender).Shirt:Clone()
+        local newPant = ReplicatedStorage.Clothes:FindFirstChild(gender).Pants:Clone()
+        newShirt.Parent = Players.LocalPlayer.Character
+        newPant.Parent = Players.LocalPlayer.Character
+
+        --Move drawer
+        local initialPosition = objective.Prop.PrimaryPart.CFrame
+        local openPosition = initialPosition + (initialPosition.LookVector * 1.5)
+        TweenService:Create(objective.Prop.PrimaryPart, TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {CFrame = openPosition}):Play()
+        wait(1.5)
+        TweenService:Create(objective.Prop.PrimaryPart, TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {CFrame = initialPosition}):Play()        
+        wait(0.5)
+
+        UnanchorPlayer()
     end,
     ["CerealBowl"] = function(objective)
         Sounds.Cereal:Play()

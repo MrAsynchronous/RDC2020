@@ -12,6 +12,10 @@ return {
         Title = "Brush Teeth",
     },
     {
+        Name = "Clothes",
+        Title = "Get Dressed"
+    },
+    {
         Name = "CerealBowl",
         Title = "Eat cereal"
     },

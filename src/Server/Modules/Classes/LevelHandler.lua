@@ -43,10 +43,9 @@ function LevelHandler.new(playerProfile)
     return self
 end
 
-
 --//Called when the player clicks play
-function LevelHandler:Start()
-    self.CurrentLevel:Initialize()
+function LevelHandler:Start(gender)
+    self.CurrentLevel:Initialize(gender)
 end
 
 

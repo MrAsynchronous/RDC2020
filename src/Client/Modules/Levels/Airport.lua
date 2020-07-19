@@ -69,14 +69,17 @@ return {
         UnanchorPlayer()
     end,
     ["BodyXRAY"] = function(objective)
+        Sounds.Xray:Play()
         ChangeProgress(1)
         AnchorPlayer()
 
         wait(1)
 
         UnanchorPlayer()
+        Sounds.Xray:Stop()
     end,
     ["BagPickup"] = function(objective)
+         
         ChangeProgress(1)
         AnchorPlayer()
 
@@ -93,11 +96,13 @@ return {
         UnanchorPlayer()
     end,
     ["Airplane"] = function(objective)
+        Sounds.Airplane:Play()
         ChangeProgress(5)
         AnchorPlayer()
 
         wait(5)
 
         UnanchorPlayer()
+        Sounds.Airplane:Stop()
     end
 }

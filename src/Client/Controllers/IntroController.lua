@@ -27,7 +27,26 @@ local Camera
 local CoreGui
 local IntroGui
 local InfoGui
+local GenderSelection
 local LoadingCameraPosition
+
+
+local function Cleanup(gender)
+    FadeController:SetBackgroundColor(Color3.fromRGB(255,255,255))
+    FadeController:Out(1)
+
+    local blurEffect = Instance.new("BlurEffect")
+    blurEffect.Size = 12
+    blurEffect.Parent = Camera
+
+    GenderSelection.Visible = false
+    CoreGui.Objectives.Visible = true
+    CoreGui.Timer.Visible = true
+
+    IntroGui:Destroy()
+    PlayerService:MarkAsReady(gender)
+    Camera.CameraType = Enum.CameraType.Custom
+end
 
 
 function IntroController:Start()
@@ -47,19 +66,20 @@ function IntroController:Start()
         Camera.CFrame = LoadingCameraPosition.Value
     end):Finally(function()
         IntroGui.Play.MouseButton1Click:Connect(function()
-            FadeController:SetBackgroundColor(Color3.fromRGB(255,255,255))
-            FadeController:Out(1)
+            IntroGui.Visible = false
+            GenderSelection.Visible = true
 
-            local blurEffect = Instance.new("BlurEffect")
-            blurEffect.Size = 12
-            blurEffect.Parent = Camera
+            GenderSelection.Male.MouseButton1Click:Connect(function()
+                Cleanup("Male")
+            end)
 
-            CoreGui.Objectives.Visible = true
-            CoreGui.Timer.Visible = true
+            GenderSelection.Female.MouseButton1Click:Connect(function()
+                Cleanup("Female")
+            end)
 
-            IntroGui:Destroy()
-            PlayerService:MarkAsReady()
-            Camera.CameraType = Enum.CameraType.Custom
+            GenderSelection.Binary.MouseButton1Click:Connect(function()
+                Cleanup("Binary")
+            end)
         end)
 
         IntroGui.Info.MouseButton1Click:Connect(function()
@@ -94,6 +114,7 @@ function IntroController:Init()
     CoreGui = PlayerGui:WaitForChild("CoreGui")
     IntroGui = CoreGui.IntroGui
     InfoGui = CoreGui.InfoGui
+    GenderSelection = CoreGui.GenderSelection
     LoadingCameraPosition = ReplicatedStorage:WaitForChild("LoadingCameraPosition")
 
 end

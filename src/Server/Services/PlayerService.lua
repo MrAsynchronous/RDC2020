@@ -73,11 +73,11 @@ function PlayerService.Client:RequestObjectiveForward(player, objective)
 end
 
 
-function PlayerService.Client:MarkAsReady(player)
+function PlayerService.Client:MarkAsReady(player, gender)
 	local Profile = PlayerProfile:Get(player)
 	Profile.Ready = true
 
-	Profile.LevelHandler:Start()
+	Profile.LevelHandler:Start(gender)
 end
 
 
