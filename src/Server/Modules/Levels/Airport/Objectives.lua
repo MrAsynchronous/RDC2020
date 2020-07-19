@@ -18,5 +18,9 @@ return {
     {
         Name = "WaitForPlane",
         Title = "Wait for the late plane"
-    }
+    },
+    {
+        Name = "Airplane",
+        Title = "Board the plane"
+    }   
 }

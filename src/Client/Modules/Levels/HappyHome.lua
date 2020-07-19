@@ -9,6 +9,7 @@ local Players = game:GetService("Players")
 
 local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 
+local Sounds = PlayerGui.Sounds
 local Camera = Workspace.CurrentCamera
 local CoreGui = PlayerGui:WaitForChild("CoreGui")
 local ProgressBar = CoreGui.ProgressBar
@@ -49,6 +50,7 @@ end
 
 return {
     ["Glasses"] = function(objective)
+        Sounds.Glasses:Play()
 
         --Clone glasses to put on player
         local newGlasses = objective.Prop:Clone()
@@ -69,6 +71,7 @@ return {
         Camera.Blur.Size = 0
     end,
     ["Shower"] = function(objective)
+        Sounds.Shower:Play()
         ChangeProgress(2)
         AnchorPlayer()
 
@@ -77,8 +80,10 @@ return {
         wait(2)
         objective.Prop.Particle.ParticleEmitter.Enabled = false
         UnanchorPlayer()
+        Sounds.Shower:Stop()
     end,
     ["Toothbrush"] = function(objective)
+        Sounds.Toothbrush:Play()
         ChangeProgress(2)
         AnchorPlayer()
 
@@ -87,8 +92,10 @@ return {
         wait(2)
         objective.Prop.Particle.ParticleEmitter.Enabled = false
         UnanchorPlayer()
+        Sounds.Toothbrush:Stop()
     end,
     ["CerealBowl"] = function(objective)
+        Sounds.Cereal:Play()
         ChangeProgress(1)
         AnchorPlayer()
 
@@ -96,8 +103,10 @@ return {
         TweenService:Create(objective.Prop.Milk, TweenInfo.new(1), {Transparency = 1}):Play()
         wait(1)
         UnanchorPlayer()
+        Sounds.Cereal:Stop()
     end,
     ["DrawerA"] = function(objective)
+        Sounds.Drawer:Play()
         ChangeProgress(2)
         AnchorPlayer()
 
@@ -112,6 +121,7 @@ return {
         UnanchorPlayer()
     end,
     ["DrawerB"] = function(objective)
+        Sounds.Drawer:Play()
         ChangeProgress(2)
         AnchorPlayer()
 
@@ -126,6 +136,7 @@ return {
         UnanchorPlayer()
     end,
     ["DrawerC"] = function(objective)
+        Sounds.Drawer:Play()
         ChangeProgress(2)
         AnchorPlayer()
 
@@ -138,5 +149,6 @@ return {
         wait(0.5)
 
         UnanchorPlayer()
-    end
+    end,
+
 }

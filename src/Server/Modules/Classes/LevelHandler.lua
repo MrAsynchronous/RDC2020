@@ -20,6 +20,7 @@ local PlayerService
 --//Locals
 local HappyHome
 local Airport
+local Hyatt
 
 
 function LevelHandler.new(playerProfile)
@@ -28,7 +29,8 @@ function LevelHandler.new(playerProfile)
 
         Levels = {
             HappyHome.new(playerProfile),
-            Airport.new(playerProfile)
+            Airport.new(playerProfile),
+            Hyatt.new(playerProfile)
         },
 
         _CurrentLevel = 0,
@@ -76,6 +78,7 @@ function LevelHandler:Init()
     --//Locals
     HappyHome = self.Modules.Levels.HappyHome
     Airport = self.Modules.Levels.Airport
+    Hyatt = self.Modules.Levels.Hyatt
 
 end
 

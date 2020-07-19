@@ -42,10 +42,6 @@ function PropController:Start()
             ui:Destroy()
         end
 
-        if (objectives[1].Title) == "Glasses" then
-            self.Player.PlayerScripts.AlarmClock:Play()
-        end
-
         for _, objective in pairs(objectives) do
             local objectiveText = ObjectiveGui.Container.Template:Clone()
             objectiveText.Text = objective.Title

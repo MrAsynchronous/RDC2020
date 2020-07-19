@@ -4,16 +4,15 @@
 
 
 
-local Airport = {}
-Airport.__aeroPreventStart = true
-Airport.__index = Airport
+local Hyatt = {}
+Hyatt.__aeroPreventStart = true
+Hyatt.__index = Hyatt
 
 --//Api
 local CharacterApi
 local TableUtil
 
 --//Services
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 
 local PlayerService
@@ -29,23 +28,23 @@ local Maid
 local ObjectiveIndex
 
 
-function Airport.new(playerProfile)
+function Hyatt.new(playerProfile)
     local self = setmetatable({
         Player = playerProfile.Player,
-        Airport = Workspace.Airport,
+        Hyatt = Workspace.Hyatt,
        
         Objectives = TableUtil.Copy(ObjectiveIndex),
         CompletedObjectives = {},
         CurrentObjective = 0,
 
-        Timer = Scheduler.new(60),
+        Timer = Scheduler.new(120),
 
         _Maid = Maid.new()
-    }, Airport)
+    }, Hyatt)
 
     --Add objective props to list
     for _, objective in pairs(self.Objectives) do
-        local prop = self.Airport:FindFirstChild(objective.Name)
+        local prop = self.Hyatt:FindFirstChild(objective.Name)
         if (not prop) then continue end
 
         objective.Prop = prop
@@ -56,46 +55,41 @@ end
 
 
 --//Forwards objective
-function Airport:ForwardObjective()
+function Hyatt:ForwardObjective()
     table.insert(self.CompletedObjectives, self.Objectives[self.CurrentObjective])
     self.CurrentObjective = self.CurrentObjective + 1
 
     if (self.CurrentObjective > #self.Objectives) then
         return self:Cleanup()
     else
-        PlayerService:FireClient("SetCurrentObjective", self.Player, "Airport", self.Objectives[self.CurrentObjective])
+        PlayerService:FireClient("SetCurrentObjective", self.Player, "Hyatt", self.Objectives[self.CurrentObjective])
     end
 end
 
 
 --//Initialize props, map etc
-function Airport:Initialize()
-    PlayerService:FireClient("MovePlayer", self.Player, self.Airport.Spawn.CFrame)
+function Hyatt:Initialize()
+    print(self.Hyatt:GetChildren())
+    PlayerService:FireClient("MovePlayer", self.Player, self.Hyatt.Spawn.CFrame)
     PlayerService:FireClient("SendObjectives", self.Player, self.Objectives)
 
     self:ForwardObjective()
-
-    self.Timer:Start()
-    self.Timer.Tick:Connect(function(elapsed)
-        ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).Timer.Value = 60 - elapsed
-    end)
 end
 
 
 --//Start the round
-function Airport:Start()
+function Hyatt:Start()
 
 end
 
 
 --//Cleanup props, map etc
-function Airport:Cleanup()
+function Hyatt:Cleanup()
     PlayerService:ForwardLevel(self.Player)
-    self.Timer:Stop()
 end
 
 
-function Airport:Init()
+function Hyatt:Init()
     --//Api
     CharacterApi = self.Shared.Character
     TableUtil = self.Shared.TableUtil
@@ -115,4 +109,4 @@ function Airport:Init()
 
 end
 
-return Airport
+return Hyatt
