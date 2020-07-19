@@ -77,6 +77,10 @@ function PlayerService.Client:MarkAsReady(player, gender)
 	local Profile = PlayerProfile:Get(player)
 	Profile.Ready = true
 
+	if (not Profile.LevelHandler) then
+		Profile.LevelHandler = LevelHandler.new(Profile)
+	end
+
 	Profile.LevelHandler:Start(gender)
 end
 

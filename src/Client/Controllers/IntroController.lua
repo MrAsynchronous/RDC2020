@@ -60,7 +60,7 @@ function IntroController:Start()
     Sounds.Theme:Play()
 
     PlayerService.GameCompleted:Connect(function()
-        Camera.Blur.Size = 0
+        Camera.Blur.Enabled = false
         CoreGui.Objectives.Visible = false
         CoreGui.ProgressBar.Visible = false
         CoreGui.Timer.Visible = false

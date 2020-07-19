@@ -30,9 +30,7 @@ local TimerContainer
 function TimerController:Start()
     local connection
     connection = TimerContainer.Timer.Changed:Connect(function(newValue)
-        if (not CoreGui.Objectives.Visible and not CoreGui:FindFirstChild("IntroGui")) then
-            connection:Disconnect()
-        end
+        if (not Camera:FindFirstChild("Blur")) then return end
 
         local totalTime = TimerContainer.TotalTime.Value
         local vision = math.clamp(20 - (math.abs(totalTime - newValue) / 4), 0, 20)

@@ -64,7 +64,6 @@ end
 
 function PlayerProfile:Unload()
 	Profiles[self.Player] = nil
-	self._Maid:Destroy()
 end
 
 
