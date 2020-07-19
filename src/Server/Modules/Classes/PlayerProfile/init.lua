@@ -19,6 +19,7 @@ local DataStore2
 local TableUtil
 
 --//Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerStorage = game:GetService("ServerStorage")
 
 --//Classes
@@ -34,19 +35,24 @@ local Profiles = {}
 function PlayerProfile.new(player)
 	local self = setmetatable({
 		Player = player,
-		
-		
+
 		_Maid = Maid.new()
 	}, PlayerProfile)
-	
+
 	Profiles[player] = self
-	
-	--//Data
-	for key, value in pairs(TableUtil.Copy(DefaultPlayerData)) do
-	--	self[key] = DataStore2(key, player)
-	--	print(key, self[key]:Get(value))
-	end
-	
+
+	local timerContainer = Instance.new("Folder")
+	timerContainer.Name = player.UserId
+	timerContainer.Parent = ReplicatedStorage.Timers
+
+	local timer = Instance.new("NumberValue")
+	timer.Name = "Timer"
+	timer.Parent = timerContainer
+
+	self.timerContainer = timerContainer
+	self._Maid:GiveTask(timerContainer)
+	self._Maid:GiveTask(timer)
+
 	return self
 end
 

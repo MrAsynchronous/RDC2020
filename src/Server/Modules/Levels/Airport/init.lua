@@ -4,9 +4,9 @@
 
 
 
-local HappyHome = {}
-HappyHome.__aeroPreventStart = true
-HappyHome.__index = HappyHome
+local Airport = {}
+Airport.__aeroPreventStart = true
+Airport.__index = Airport
 
 --//Api
 local CharacterApi
@@ -14,13 +14,13 @@ local TableUtil
 
 --//Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
 
 local PlayerService
 
 --//Classes
 local Scheduler
 local Promise
-local Prop
 local Maid
 
 --//Controllers
@@ -29,24 +29,23 @@ local Maid
 local ObjectiveIndex
 
 
-function HappyHome.new(playerProfile)
+function Airport.new(playerProfile)
     local self = setmetatable({
         Player = playerProfile.Player,
-        House = playerProfile.House.Object,
-
+        Airport = Workspace.Airport,
+       
         Objectives = TableUtil.Copy(ObjectiveIndex),
         CompletedObjectives = {},
+        CurrentObjective = 0,
 
         Timer = Scheduler.new(60),
 
         _Maid = Maid.new()
-    }, HappyHome)
-
-    self.CurrentObjective = 0
+    }, Airport)
 
     --Add objective props to list
     for _, objective in pairs(self.Objectives) do
-        local prop = self.House.Props:FindFirstChild(objective.Name)
+        local prop = self.Airport:FindFirstChild(objective.Name)
         if (not prop) then continue end
 
         objective.Prop = prop
@@ -57,25 +56,21 @@ end
 
 
 --//Forwards objective
-function HappyHome:ForwardObjective()
+function Airport:ForwardObjective()
     table.insert(self.CompletedObjectives, self.Objectives[self.CurrentObjective])
     self.CurrentObjective = self.CurrentObjective + 1
 
     if (self.CurrentObjective > #self.Objectives) then
         return self:Cleanup()
     else
-        PlayerService:FireClient("SetCurrentObjective", self.Player, "HappyHome", self.Objectives[self.CurrentObjective])
+        PlayerService:FireClient("SetCurrentObjective", "Airport", self.Player, self.Objectives[self.CurrentObjective])
     end
 end
 
 
---//Initialize props, map, etc
-function HappyHome:Initialize()
-    local bedCFrame = self.House.Props.Bed.CFrame
-    local position = bedCFrame + (-bedCFrame.RightVector * 5) + Vector3.new(0, 2, 0)
-
-    --Move character
-    PlayerService:FireClient("MovePlayer", self.Player, position, true)
+--//Initialize props, map etc
+function Airport:Initialize()
+    PlayerService:FireClient("MovePlayer", self.Player, self.Airport.Spawn.CFrame)
     PlayerService:FireClient("SendObjectives", self.Player, self.Objectives)
 
     self:ForwardObjective()
@@ -87,14 +82,20 @@ function HappyHome:Initialize()
 end
 
 
---//Cleanup connections
-function HappyHome:Cleanup()
+--//Start the round
+function Airport:Start()
+
+end
+
+
+--//Cleanup props, map etc
+function Airport:Cleanup()
     PlayerService:ForwardLevel(self.Player)
     self.Timer:Stop()
 end
 
 
-function HappyHome:Init()
+function Airport:Init()
     --//Api
     CharacterApi = self.Shared.Character
     TableUtil = self.Shared.TableUtil
@@ -105,7 +106,6 @@ function HappyHome:Init()
     --//Classes
     Scheduler = self.Shared.Scheduler
     Promise = self.Shared.Promise
-    Prop = self.Modules.Classes.Prop
     Maid = self.Shared.Maid
 
     --//Controllers
@@ -115,5 +115,4 @@ function HappyHome:Init()
 
 end
 
-
-return HappyHome
+return Airport

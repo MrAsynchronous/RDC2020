@@ -1,12 +1,34 @@
 return {
     {
-        Title = "Glasses",
-        Completed = false,
-        TimeTaken = 0,
+        Name = "Glasses",
+        Title = "Put on glasses"
     },
     {
+        Name = "Shower",
         Title = "Shower",
-        Completed = false,
-        TimeTaken = 0,
     },
+    {
+        Name = "Toothbrush",
+        Title = "Brush Teeth",
+    },
+    {
+        Name = "CerealBowl",
+        Title = "Eat cereal"
+    },
+    {
+        Name = "DrawerA",
+        Title = "Grab Shirts"
+    },
+    {
+        Name = "DrawerB",
+        Title = "Grab Pants"
+    },
+    {
+        Name = "DrawerC",
+        Title = "Grab Socks"
+    },
+    {
+        Name = "DoorWay",
+        Title = "Leave house"
+    }
 }

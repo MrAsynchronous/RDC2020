@@ -23,7 +23,6 @@ function CharacterController:Start()
 
     PlayerService.MovePlayer:Connect(function(newCFrame, isAnchored)
     	CharacterApi:Get():Then(function(character)
-    		character.PrimaryPart.Anchored = (isAnchored and true or false)
     		character:SetPrimaryPartCFrame(newCFrame)
 
     	end, function()

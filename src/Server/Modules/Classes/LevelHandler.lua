@@ -5,6 +5,7 @@
 
 
 local LevelHandler = {}
+LevelHandler.__aeroPreventStart = true
 LevelHandler.__index = LevelHandler
 
 --//Api
@@ -18,6 +19,7 @@ local PlayerService
 
 --//Locals
 local HappyHome
+local Airport
 
 
 function LevelHandler.new(playerProfile)
@@ -25,27 +27,39 @@ function LevelHandler.new(playerProfile)
         Player = playerProfile.Player,
 
         Levels = {
-            HappyHome.new(playerProfile)
+            HappyHome.new(playerProfile),
+            Airport.new(playerProfile)
         },
 
-        CompletedLevels = {}
+        _CurrentLevel = 0,
+        CompletedLevels = {},
     }, LevelHandler)
 
     --Set current level, should be happy home
-    self:ChangeLevel(1)
+    self:ForwardLevel(true)
 
     return self
 end
 
 
+--//Called when the player clicks play
+function LevelHandler:Start()
+    self.CurrentLevel:Initialize()
+end
+
+
 --//Updates currentLevel
-function LevelHandler:ChangeLevel(newLevel)
-    if (self.CurrentLevel) then
-        table.insert(self.CompletedLevels, self.CurrentLevel)
+function LevelHandler:ForwardLevel(isInitial)
+    self._CurrentLevel = self._CurrentLevel + 1
+    self.CurrentLevel = self.Levels[self._CurrentLevel]
+
+    if (not self.CurrentLevel) then
+        return print("GAME OVER!")
     end
 
-    self.CurrentLevel = self.Levels[newLevel]
-    self.CurrentLevel:Initialize()
+    if (not isInitial) then
+        self.CurrentLevel:Initialize()
+    end
 end
 
 
@@ -61,6 +75,7 @@ function LevelHandler:Init()
 
     --//Locals
     HappyHome = self.Modules.Levels.HappyHome
+    Airport = self.Modules.Levels.Airport
 
 end
 

@@ -5,7 +5,7 @@
 
 
 local Template = {}
-Template.__aeroPreventStart
+Template.__aeroPreventStart = true
 Template.__index = Template
 
 --//Api
@@ -13,6 +13,7 @@ local CharacterApi
 local TableUtil
 
 --//Services
+local PlayerService
 
 --//Classes
 local Scheduler
@@ -30,6 +31,7 @@ function Template.new(playerProfile)
         Player = playerProfile.Player,
        
         Objectives = TableUtil.Copy(ObjectiveIndex),
+        CompletedObjectives = {},
 
         _Maid = Maid.new()
     }, Template)
@@ -38,9 +40,25 @@ function Template.new(playerProfile)
 end
 
 
+--//Forwards objective
+function Airport:ForwardObjective()
+    table.insert(self.CompletedObjectives, self.Objectives[self.CurrentObjective])
+    self.CurrentObjective = self.CurrentObjective + 1
+
+    if (self.CurrentObjective > #self.Objectives) then
+        return self:Cleanup()
+    else
+        PlayerService:FireClient("SetCurrentObjective", self.Player, self.Objectives[self.CurrentObjective])
+    end
+end
+
+
 --//Initialize props, map etc
 function Template:Initialize()
+    PlayerService:FireClient("MovePlayer", self.Player, self.Airport.Spawn.CFrame)
+    PlayerService:FireClient("SendObjectives", self.Player, self.Objectives)
 
+    self:ForwardObjective()
 end
 
 
@@ -52,7 +70,7 @@ end
 
 --//Cleanup props, map etc
 function Template:Cleanup()
-
+    PlayerService:ForwardLevel(self.Player)
 end
 
 
@@ -62,10 +80,11 @@ function Template:Init()
     TableUtil = self.Shared.TableUtil
 
     --//Services
+    PlayerService = self.Services.PlayerService
 
     --//Classes
     Scheduler = self.Shared.Scheduler
-    Promise = self.Shared.Proimise
+    Promise = self.Shared.Promise
     Maid = self.Shared.Maid
 
     --//Controllers
