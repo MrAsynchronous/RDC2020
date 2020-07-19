@@ -49,9 +49,14 @@ function PlayerProfile.new(player)
 	timer.Name = "Timer"
 	timer.Parent = timerContainer
 
+	local totalTime = Instance.new("NumberValue")
+	totalTime.Name = "TotalTime"
+	totalTime.Parent = timerContainer
+
 	self.timerContainer = timerContainer
 	self._Maid:GiveTask(timerContainer)
 	self._Maid:GiveTask(timer)
+	self._Maid:GiveTask(totalTime)
 
 	return self
 end
@@ -59,6 +64,7 @@ end
 
 function PlayerProfile:Unload()
 	Profiles[self.Player] = nil
+	self._Maid:Destroy()
 end
 
 

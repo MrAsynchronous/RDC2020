@@ -38,7 +38,7 @@ function Hyatt.new(playerProfile)
         CompletedObjectives = {},
         CurrentObjective = 0,
 
-        Timer = Scheduler.new(120),
+        Timer = Scheduler.new(90),
 
         _Maid = Maid.new()
     }, Hyatt)
@@ -73,10 +73,12 @@ function Hyatt:Initialize()
     PlayerService:FireClient("MovePlayer", self.Player, self.Hyatt.Spawn.CFrame)
     PlayerService:FireClient("SendObjectives", self.Player, self.Objectives)
 
+    ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).TotalTime.Value = 90
+
     self:ForwardObjective()
     self.Timer:Start()
     self.Timer.Tick:Connect(function(elapsed)
-        ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).Timer.Value = 60 - elapsed
+        ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).Timer.Value = 90 - elapsed
     end)
 end
 

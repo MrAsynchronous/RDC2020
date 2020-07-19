@@ -75,6 +75,8 @@ function Airport:Initialize()
 
     self:ForwardObjective()
 
+    ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).TotalTime.Value = 60
+
     self.Timer:Start()
     self.Timer.Tick:Connect(function(elapsed)
         ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).Timer.Value = 60 - elapsed

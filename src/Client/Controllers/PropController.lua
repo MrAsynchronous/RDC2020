@@ -75,7 +75,7 @@ function PropController:Start()
             if (self.Modules.Levels[levelName][objective.Name] ~= nil) then
                 self.Modules.Levels[levelName][objective.Name](objective)
             end
-            
+
             PlayerService:RequestObjectiveForward(objective)
         end)
     end)

@@ -58,8 +58,6 @@ return {
         wakeupAnim.AnimationId = "rbxassetid://5374454968"
 
         local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(wakeupAnim)
-        loadedAnim:Play()
-
 
         --Clone glasses to put on player
         local newGlasses = objective.Prop:Clone()

@@ -30,11 +30,12 @@ local TimerContainer
 function TimerController:Start()
     local connection
     connection = TimerContainer.Timer.Changed:Connect(function(newValue)
-        if (not CoreGui.Objectives.Visible and not CoreGui.IntroGui.Visible) then
+        if (not CoreGui.Objectives.Visible and not CoreGui:FindFirstChild("IntroGui")) then
             connection:Disconnect()
         end
 
-        local vision = math.clamp(20 - (math.abs(60 - newValue) / 2), 0, 20)
+        local totalTime = TimerContainer.TotalTime.Value
+        local vision = math.clamp(20 - (math.abs(totalTime - newValue) / 4), 0, 20)
 
         TimerGui.Title.Text = newValue
         VisionGui.Label.Text = vision .. "/" .. vision

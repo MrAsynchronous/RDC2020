@@ -37,7 +37,7 @@ function HappyHome.new(playerProfile)
         Objectives = TableUtil.Copy(ObjectiveIndex),
         CompletedObjectives = {},
 
-        Timer = Scheduler.new(60),
+        Timer = Scheduler.new(45),
 
         _Maid = Maid.new()
     }, HappyHome)
@@ -84,9 +84,11 @@ function HappyHome:Initialize(gender)
 
     self:ForwardObjective()
 
+    ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).TotalTime.Value = 45
+
     self.Timer:Start()
     self.Timer.Tick:Connect(function(elapsed)
-        ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).Timer.Value = 60 - elapsed
+        ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).Timer.Value = 45 - elapsed
     end)
 end
 

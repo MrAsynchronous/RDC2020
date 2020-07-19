@@ -7,6 +7,7 @@ local TweenService = game:GetService("TweenService")
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local Sounds = PlayerGui.Sounds
@@ -100,9 +101,27 @@ return {
         ChangeProgress(5)
         AnchorPlayer()
 
-        wait(5)
+        wait(4)
+
+        local plane = ReplicatedStorage.Airplane:Clone()
+        plane.Parent = Workspace
+
+        Camera.CameraType = Enum.CameraType.Scriptable
+        Camera.CFrame = ReplicatedStorage.RunwayPosition.Value
+
+        Camera.Blur.Enabled = false
+
+        Sounds.Airplane:Play()
+        for node = 1, #ReplicatedStorage.PlaneNodes:GetChildren(), 1 do
+            local node = ReplicatedStorage.PlaneNodes:FindFirstChild(node)
+            local tween = TweenService:Create(plane.PrimaryPart, TweenInfo.new(0.5, Enum.EasingStyle.Linear), {CFrame = node.CFrame})
+            tween:Play()
+            tween.Completed:Wait()
+        end
 
         UnanchorPlayer()
+        Camera.Blur.Enabled = true
+        Camera.CameraType = Enum.CameraType.Custom
         Sounds.Airplane:Stop()
     end
 }
