@@ -50,10 +50,38 @@ end
 
 return {
     ["Doorway"] = function(objective)
-        ChangeProgress(3)
+        ChangeProgress(1)
         AnchorPlayer()
 
-        wait(3)
+        wait(1)
+
+        UnanchorPlayer()
+    end,
+    ["Checkin"] = function(objective)
+        Sounds.Checkin:Play()
+        ChangeProgress(4)
+        AnchorPlayer()
+
+        wait(4)
+
+        UnanchorPlayer()
+        Sounds.Checkin:Stop()
+    end,
+    ["Swag"] = function(objective)
+        Sounds.Pickup:Play()
+        ChangeProgress(1.5)
+        AnchorPlayer()
+
+        wait(1.5)
+
+        UnanchorPlayer()
+    end,
+    ["chewbeccca"] = function(objective)
+        Sounds.Chewbacca:Play()
+        ChangeProgress(1.5)
+        AnchorPlayer()
+
+        wait(1.5)
 
         UnanchorPlayer()
     end

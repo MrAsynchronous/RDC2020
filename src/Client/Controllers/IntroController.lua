@@ -12,6 +12,7 @@ local CharacterApi
 
 --//Services
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
 local Workspace = game:GetService("Workspace")
 
 local PlayerService
@@ -23,6 +24,7 @@ local PlayerGui
 local FadeController
 
 --//Locals
+local Sounds
 local Camera
 local CoreGui
 local IntroGui
@@ -43,6 +45,11 @@ local function Cleanup(gender)
     CoreGui.Objectives.Visible = true
     CoreGui.Timer.Visible = true
 
+    Sounds.InGame.Volume = 0
+    Sounds.InGame:Play()
+    TweenService:Create(Sounds.Theme, TweenInfo.new(1), {Volume = 0}):Play()
+    TweenService:Create(Sounds.InGame, TweenInfo.new(1), {Volume = 0.5}):Play()
+
     IntroGui:Destroy()
     PlayerService:MarkAsReady(gender)
     Camera.CameraType = Enum.CameraType.Custom
@@ -50,6 +57,8 @@ end
 
 
 function IntroController:Start()
+    Sounds.Theme:Play()
+
     PlayerService.GameCompleted:Connect(function()
         Camera.Blur.Size = 0
         CoreGui.Objectives.Visible = false
@@ -110,6 +119,7 @@ function IntroController:Init()
     FadeController = self.Controllers.Fade
 
     --//Locals
+    Sounds = PlayerGui:WaitForChild("Sounds")
     Camera = Workspace.CurrentCamera
     CoreGui = PlayerGui:WaitForChild("CoreGui")
     IntroGui = CoreGui.IntroGui

@@ -76,17 +76,30 @@ return {
         ChangeProgress(2)
         AnchorPlayer()
 
+        local showerAnim = Instance.new("Animation")
+        showerAnim.AnimationId = "rbxassetid://5378496101"
+
+        local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(showerAnim)
+        loadedAnim:Play()
+
         --Enable particle
         objective.Prop.Particle.ParticleEmitter.Enabled = true
         wait(2)
         objective.Prop.Particle.ParticleEmitter.Enabled = false
         UnanchorPlayer()
         Sounds.Shower:Stop()
+        showerAnim:Destroy()
     end,
     ["Toothbrush"] = function(objective)
         Sounds.Toothbrush:Play()
         ChangeProgress(2)
         AnchorPlayer()
+
+        local brushAnim = Instance.new("Animation")
+        brushAnim.AnimationId = "rbxassetid://5378598059"
+
+        local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(brushAnim)
+        loadedAnim:Play()
 
         --Enable Particle
         objective.Prop.Particle.ParticleEmitter.Enabled = true
@@ -94,6 +107,7 @@ return {
         objective.Prop.Particle.ParticleEmitter.Enabled = false
         UnanchorPlayer()
         Sounds.Toothbrush:Stop()
+        brushAnim:Destroy()
     end,
     ["Clothes"] = function(objective)
         Sounds.Drawer:Play()
