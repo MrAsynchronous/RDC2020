@@ -79,7 +79,7 @@ return {
         Sounds.Xray:Stop()
     end,
     ["BagPickup"] = function(objective)
-         
+        Sounds.Pickup:Play()
         ChangeProgress(1)
         AnchorPlayer()
 

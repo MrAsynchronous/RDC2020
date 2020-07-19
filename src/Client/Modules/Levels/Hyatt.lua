@@ -84,5 +84,43 @@ return {
         wait(1.5)
 
         UnanchorPlayer()
+    end,
+    ["Sergeant_Roach"] = function(objective)
+        Sounds.Roach:Play()
+        ChangeProgress(1.5)
+        AnchorPlayer()
+
+        wait(1.5)
+
+        UnanchorPlayer()
+    end,
+    ["coefficients"] = function(objective)
+        Sounds.Coefficients:Play()
+        ChangeProgress(1.5)
+        AnchorPlayer()
+
+        wait(1.5)
+
+        UnanchorPlayer()
+        Sounds.Coefficients:Stop()
+    end,
+    ["Shedletsky"] = function(objective)
+        Sounds.Shedletsky:Play()
+        ChangeProgress(1.5)
+        AnchorPlayer()
+
+        wait(1.5)
+
+        UnanchorPlayer()
+        Sounds.Shedletsky:Stop()
+    end,
+    ["builderman"] = function(objective)
+        Sounds.Builderman:Play()
+        ChangeProgress(1.5)
+        AnchorPlayer()
+
+        wait(5)
+
+        UnanchorPlayer()
     end
 }

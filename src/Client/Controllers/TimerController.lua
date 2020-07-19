@@ -28,7 +28,12 @@ local TimerContainer
 
 
 function TimerController:Start()
-    TimerContainer.Timer.Changed:Connect(function(newValue)
+    local connection
+    connection = TimerContainer.Timer.Changed:Connect(function(newValue)
+        if (not CoreGui.Objectives.Visible and not CoreGui.IntroGui.Visible) then
+            connection:Disconnect()
+        end
+
         local vision = math.clamp(20 - (math.abs(60 - newValue) / 2), 0, 20)
 
         TimerGui.Title.Text = newValue

@@ -53,6 +53,14 @@ return {
     ["Glasses"] = function(objective)
         Sounds.Glasses:Play()
 
+
+        local wakeupAnim = Instance.new("Animation")
+        wakeupAnim.AnimationId = "rbxassetid://5374454968"
+
+        local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(wakeupAnim)
+        loadedAnim:Play()
+
+
         --Clone glasses to put on player
         local newGlasses = objective.Prop:Clone()
         newGlasses.Parent = Players.LocalPlayer.Character
@@ -60,7 +68,7 @@ return {
         newGlasses.PrimaryPart.CanCollide = false
         newGlasses.PrimaryPart.Size = newGlasses.PrimaryPart.Size * 2
         newGlasses:SetPrimaryPartCFrame(Players.LocalPlayer.Character.Head.CFrame)
-
+        
         --Create weld
         local weld = Instance.new("WeldConstraint")
         weld.Parent = newGlasses.PrimaryPart
@@ -68,6 +76,7 @@ return {
         weld.Part1 = Players.LocalPlayer.Character.Head
 
         --Remove other glasses, remove blur
+        wakeupAnim:Destroy()
         objective.Prop:Destroy()
         Camera.Blur.Size = 0
     end,
@@ -77,7 +86,7 @@ return {
         AnchorPlayer()
 
         local showerAnim = Instance.new("Animation")
-        showerAnim.AnimationId = "rbxassetid://5378496101"
+        showerAnim.AnimationId = "rbxassetid://5378695510"
 
         local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(showerAnim)
         loadedAnim:Play()
@@ -96,7 +105,7 @@ return {
         AnchorPlayer()
 
         local brushAnim = Instance.new("Animation")
-        brushAnim.AnimationId = "rbxassetid://5378598059"
+        brushAnim.AnimationId = "rbxassetid://5378705897"
 
         local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(brushAnim)
         loadedAnim:Play()
@@ -113,6 +122,12 @@ return {
         Sounds.Drawer:Play()
         ChangeProgress(2)
         AnchorPlayer()
+
+        local openAnim = Instance.new("Animation")
+        openAnim.AnimationId = "rbxassetid://5378902771"
+
+        local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(openAnim)
+        loadedAnim:Play()
 
         local gender = objective.Gender
         local currentShirt, currentPant = Players.LocalPlayer.Character:FindFirstChildOfClass("Shirt"), Players.LocalPlayer.Character:FindFirstChildOfClass("Pants")
@@ -132,6 +147,7 @@ return {
         TweenService:Create(objective.Prop.PrimaryPart, TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {CFrame = initialPosition}):Play()        
         wait(0.5)
 
+        openAnim:Destroy()
         UnanchorPlayer()
     end,
     ["CerealBowl"] = function(objective)
@@ -139,16 +155,29 @@ return {
         ChangeProgress(1)
         AnchorPlayer()
 
+        local eatAnim = Instance.new("Animation")
+        eatAnim.AnimationId = "rbxassetid://5378690741"
+
+        local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(eatAnim)
+        loadedAnim:Play()
+
         --Tween milk
         TweenService:Create(objective.Prop.Milk, TweenInfo.new(1), {Transparency = 1}):Play()
         wait(1)
         UnanchorPlayer()
         Sounds.Cereal:Stop()
+        eatAnim:Destroy()
     end,
     ["DrawerA"] = function(objective)
         Sounds.Drawer:Play()
         ChangeProgress(2)
         AnchorPlayer()
+
+        local openAnim = Instance.new("Animation")
+        openAnim.AnimationId = "rbxassetid://5378902771"
+
+        local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(openAnim)
+        loadedAnim:Play()
 
         --Move drawer
         local initialPosition = objective.Prop.PrimaryPart.CFrame
@@ -158,6 +187,7 @@ return {
         TweenService:Create(objective.Prop.PrimaryPart, TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {CFrame = initialPosition}):Play()        
         wait(0.5)
 
+        openAnim:Destroy()
         UnanchorPlayer()
     end,
     ["DrawerB"] = function(objective)
@@ -165,6 +195,12 @@ return {
         ChangeProgress(2)
         AnchorPlayer()
 
+        local openAnim = Instance.new("Animation")
+        openAnim.AnimationId = "rbxassetid://5378902771"
+
+        local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(openAnim)
+        loadedAnim:Play()
+
         --Move drawer
         local initialPosition = objective.Prop.PrimaryPart.CFrame
         local openPosition = initialPosition + (initialPosition.LookVector * 1.5)
@@ -173,6 +209,7 @@ return {
         TweenService:Create(objective.Prop.PrimaryPart, TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {CFrame = initialPosition}):Play()        
         wait(0.5)
 
+        openAnim:Destroy()
         UnanchorPlayer()
     end,
     ["DrawerC"] = function(objective)
@@ -180,6 +217,12 @@ return {
         ChangeProgress(2)
         AnchorPlayer()
 
+        local openAnim = Instance.new("Animation")
+        openAnim.AnimationId = "rbxassetid://5378902771"
+
+        local loadedAnim = Players.LocalPlayer.Character.Humanoid:LoadAnimation(openAnim)
+        loadedAnim:Play()
+
         --Move drawer
         local initialPosition = objective.Prop.PrimaryPart.CFrame
         local openPosition = initialPosition + (initialPosition.LookVector * 1.5)
@@ -188,6 +231,7 @@ return {
         TweenService:Create(objective.Prop.PrimaryPart, TweenInfo.new(1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {CFrame = initialPosition}):Play()        
         wait(0.5)
 
+        openAnim:Destroy()
         UnanchorPlayer()
     end,
 
