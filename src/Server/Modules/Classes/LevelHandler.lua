@@ -56,7 +56,7 @@ function LevelHandler:ForwardLevel(isInitial)
     self.CurrentLevel = self.Levels[self._CurrentLevel]
 
     if (not self.CurrentLevel) then
-        return print("GAME OVER!")
+        return PlayerService:FireClient("GameCompleted", self.Player)
     end
 
     if (not isInitial) then

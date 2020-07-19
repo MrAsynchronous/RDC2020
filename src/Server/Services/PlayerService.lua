@@ -96,6 +96,7 @@ function PlayerService:Init()
 	
 	--//Locals
 	self:RegisterClientEvent("MovePlayer")
+	self:RegisterClientEvent("GameCompleted")
 	self:RegisterClientEvent("SendObjectives")
 	self:RegisterClientEvent("SetCurrentObjective")
 

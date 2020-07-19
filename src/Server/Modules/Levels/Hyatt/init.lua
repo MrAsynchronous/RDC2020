@@ -13,6 +13,7 @@ local CharacterApi
 local TableUtil
 
 --//Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 
 local PlayerService
@@ -69,11 +70,14 @@ end
 
 --//Initialize props, map etc
 function Hyatt:Initialize()
-    print(self.Hyatt:GetChildren())
     PlayerService:FireClient("MovePlayer", self.Player, self.Hyatt.Spawn.CFrame)
     PlayerService:FireClient("SendObjectives", self.Player, self.Objectives)
 
     self:ForwardObjective()
+    self.Timer:Start()
+    self.Timer.Tick:Connect(function(elapsed)
+        ReplicatedStorage.Timers:FindFirstChild(self.Player.UserId).Timer.Value = 60 - elapsed
+    end)
 end
 
 

@@ -50,14 +50,17 @@ end
 
 return {
     ["Checkin"] = function(objective)
+        Sounds.Checkin:Play()
         ChangeProgress(3)
         AnchorPlayer()
 
         wait(3)
 
         UnanchorPlayer()
+        Sounds.Checkin:Stop()
     end,
     ["BagXRAY"] = function(objective)
+        Sounds.Bagcheck:Play()
         ChangeProgress(1)
         AnchorPlayer()
 

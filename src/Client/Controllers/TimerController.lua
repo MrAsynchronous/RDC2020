@@ -21,6 +21,7 @@ local PlayerGui
 --//Locals
 local CoreGui
 local TimerGui
+local VisionGui
 
 local Camera
 local TimerContainer
@@ -28,7 +29,11 @@ local TimerContainer
 
 function TimerController:Start()
     TimerContainer.Timer.Changed:Connect(function(newValue)
+        local vision = math.clamp(20 - (math.abs(60 - newValue) / 2), 0, 20)
+
         TimerGui.Title.Text = newValue
+        VisionGui.Label.Text = vision .. "/" .. vision
+        Camera.Blur.Size = 20 - vision
     end)
 end
 
@@ -46,6 +51,7 @@ function TimerController:Init()
     --//Locals
     CoreGui = PlayerGui:WaitForChild("CoreGui")
     TimerGui = CoreGui.Timer
+    VisionGui = CoreGui.VisionGui
     Camera = Workspace.CurrentCamera
     TimerContainer = ReplicatedStorage.Timers:WaitForChild(self.Player.UserId)
 

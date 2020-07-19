@@ -26,10 +26,22 @@ local FadeController
 local Camera
 local CoreGui
 local IntroGui
+local InfoGui
 local LoadingCameraPosition
 
 
 function IntroController:Start()
+    PlayerService.GameCompleted:Connect(function()
+        Camera.Blur.Size = 0
+        CoreGui.Objectives.Visible = false
+        CoreGui.ProgressBar.Visible = false
+        CoreGui.Timer.Visible = false
+        CoreGui.CompletedGui.Visible = true
+        CoreGui.CompletedGui.Exit.MouseButton1Click:Connect(function()
+            CoreGui.CompletedGui.Visible = false
+        end)
+    end)
+
     CharacterApi:Get():Then(function()
         Camera.CameraType = Enum.CameraType.Scriptable
         Camera.CFrame = LoadingCameraPosition.Value
@@ -48,6 +60,16 @@ function IntroController:Start()
             IntroGui:Destroy()
             PlayerService:MarkAsReady()
             Camera.CameraType = Enum.CameraType.Custom
+        end)
+
+        IntroGui.Info.MouseButton1Click:Connect(function()
+            IntroGui.Visible = false
+            InfoGui.Visible = true
+        end)
+
+        InfoGui.Exit.MouseButton1Click:Connect(function()
+            InfoGui.Visible = false
+            IntroGui.Visible = true
         end)
     end)
 end
@@ -71,6 +93,7 @@ function IntroController:Init()
     Camera = Workspace.CurrentCamera
     CoreGui = PlayerGui:WaitForChild("CoreGui")
     IntroGui = CoreGui.IntroGui
+    InfoGui = CoreGui.InfoGui
     LoadingCameraPosition = ReplicatedStorage:WaitForChild("LoadingCameraPosition")
 
 end
